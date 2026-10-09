@@ -13,7 +13,7 @@ export default function EnquiryStrip() {
         <div className="enquiry-action">
           <a
             href="#"
-            className="enquiry-btn"
+            className="enquiry-btn site-cta"
             onClick={(e) => {
               e.preventDefault();
               openEnquiry();

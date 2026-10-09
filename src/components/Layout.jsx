@@ -20,6 +20,27 @@ export default function Layout() {
     }
   }, [location.pathname, location.hash]);
 
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) return;
+
+    const sections = document.querySelectorAll("main section");
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: "0px 0px -6% 0px", threshold: 0.08 });
+
+    sections.forEach((section) => {
+      section.classList.add("motion-ready");
+      observer.observe(section);
+    });
+
+    return () => observer.disconnect();
+  }, [location.pathname]);
+
   return (
     <EnquiryProvider>
       <Navbar />

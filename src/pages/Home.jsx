@@ -4,9 +4,10 @@ import { FEATURED_PRODUCTS, HERO_SLIDES, INDUSTRIES, REVIEWS, WHY_ITEMS, enc } f
 import EnquiryStrip from "../components/EnquiryStrip";
 import Accordion from "../components/Accordion";
 import StarRating from "../components/StarRating";
+import Slider from "../components/Slider";
 
 const VIDEOS = ["/videos/Video 1.mp4", "/videos/Video 2.mp4", "/videos/Video 3.mp4", "/videos/Video 4.mp4"];
-const WHY_ICONS = ["bx-cog", "bx-factory", "bx-check-shield", "bx-customize", "bx-trending-up", "bx-world", "bx-medal", "bx-group"];
+const WHY_ICONS = ["bx-cog", "bx-wrench", "bx-check-shield", "bx-customize", "bx-trending-up", "bx-world", "bx-medal", "bx-group"];
 
 export default function Home() {
   const [slide, setSlide] = useState(0);
@@ -96,7 +97,7 @@ export default function Home() {
       <section className="about-section">
         <div className="about-container">
           <div className="about-image">
-            <img src={enc("/img/overview/About Us Pictures.png")} alt="About Sealventures" />
+            <img src={enc("/img/About Sealventures.png")} alt="About Sealventures" />
           </div>
           <div className="about-content">
             <span className="about-tag">About Sealventures</span>
@@ -106,7 +107,7 @@ export default function Home() {
               customer specifications. Our portfolio includes cartridge, bellows, agitator, split, and custom seals,
               backed by dependable engineering and quality control.
             </p>
-            <Link to="/about/overview" className="about-btn">
+            <Link to="/about/overview" className="about-btn site-cta">
               Read More...
             </Link>
           </div>
@@ -128,7 +129,7 @@ export default function Home() {
           </p>
         </div>
         <div className="why-slider">
-          <div className="why-track" style={{ overflowX: "auto" }}>
+          <Slider className="why-track">
             {WHY_ITEMS.map((item, i) => (
               <div className="why-card" key={item.num}>
                 <span className="num">{item.num}</span>
@@ -140,7 +141,7 @@ export default function Home() {
                 </div>
               </div>
             ))}
-          </div>
+          </Slider>
         </div>
       </section>
 
@@ -154,13 +155,13 @@ export default function Home() {
           </p>
         </div>
         <div className="product-slider">
-          <div className="product-track" style={{ overflowX: "auto" }}>
+          <Slider className="product-track">
             {FEATURED_PRODUCTS.map((p) => (
               <Link className="product-card" to={p.to} key={p.name}>
                 <img src={enc(p.img)} alt={p.name} />
               </Link>
             ))}
-          </div>
+          </Slider>
         </div>
       </section>
 
@@ -178,7 +179,7 @@ export default function Home() {
             </p>
           </div>
           <div className="industries-slider">
-            <div className="industries-track" style={{ overflowX: "auto" }}>
+            <Slider className="industries-track">
               {INDUSTRIES.map((item, i) => (
                 <div className={`industry-card ${openIndustry === i ? "active" : ""}`} key={item.title}>
                   <img className="industry-image" src={enc(item.image)} alt={`${item.title} industry`} />
@@ -210,7 +211,7 @@ export default function Home() {
                   </div>
                 </div>
               ))}
-            </div>
+            </Slider>
           </div>
         </div>
       </section>
@@ -239,11 +240,11 @@ export default function Home() {
         <div className="section-header">
           <h2 className="section-title">What our clients say about us</h2>
           <p className="section-description">
-            We've helped hundreds of businesses transform their digital presence. Here's what some of them have to say.
+            Trusted by process-industry teams for dependable sealing solutions, responsive support, and consistent product quality.
           </p>
         </div>
         <div className="reviews-slider">
-          <div className="reviews-track" style={{ overflowX: "auto" }}>
+          <Slider className="reviews-track">
             {REVIEWS.map((r) => (
               <div className="review-card" key={r.name}>
                 <div className="star-rating">
@@ -258,7 +259,7 @@ export default function Home() {
                 </div>
               </div>
             ))}
-          </div>
+          </Slider>
         </div>
       </section>
     </>

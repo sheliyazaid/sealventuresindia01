@@ -7,7 +7,8 @@ export default function Footer() {
         <div className="footer-grid">
           <div>
             <Link to="/" className="footer-brand">
-              Sealventures India
+              <span className="footer-mark" aria-hidden="true">SV</span>
+              <span>Sealventures <small>INDIA</small></span>
             </Link>
             <p className="footer-tagline">
               At Sealventures India Private Limited, we maintain quality management system with strong emphasis on the

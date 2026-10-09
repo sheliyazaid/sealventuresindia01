@@ -3,7 +3,7 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 import { NAV } from "../data/site";
 import { useEnquiry } from "../context/EnquiryContext";
 
-function Nested({ items, close, mobile, openKey, setOpenKey, parentKey = "" }) {
+function Nested({ items, close, openKey, setOpenKey, parentKey = "" }) {
   return items.map((item) => {
     const key = parentKey + item.label;
 
@@ -17,7 +17,7 @@ function Nested({ items, close, mobile, openKey, setOpenKey, parentKey = "" }) {
             aria-expanded={open}
             onClick={(e) => {
               e.preventDefault();
-              if (mobile) setOpenKey(open ? parentKey : key);
+              setOpenKey(open ? parentKey : key);
             }}
           >
             {item.label} <span className="caret-sub" />
@@ -26,7 +26,6 @@ function Nested({ items, close, mobile, openKey, setOpenKey, parentKey = "" }) {
             <Nested
               items={item.children}
               close={close}
-              mobile={mobile}
               openKey={openKey}
               setOpenKey={setOpenKey}
               parentKey={key}
@@ -120,7 +119,15 @@ export default function Navbar() {
         </div>
       </div>
 
-      <header className={`navbar ${scrolled ? "scrolled" : ""}`}>
+      <header
+        className={`navbar ${scrolled ? "scrolled" : ""}`}
+        onMouseLeave={() => {
+          if (!mobile) setOpenKey("");
+        }}
+        onKeyDown={(e) => {
+          if (e.key === "Escape") close();
+        }}
+      >
         <div className="container nav-flex">
           {/* LEFT — logo */}
           <div className="logo">
@@ -146,7 +153,7 @@ export default function Navbar() {
                         aria-expanded={open}
                         onClick={(e) => {
                           e.preventDefault();
-                          if (mobile) setOpenKey(open ? "" : key);
+                          setOpenKey(open ? "" : key);
                         }}
                       >
                         {item.label} <span className="caret" />
@@ -155,7 +162,6 @@ export default function Navbar() {
                         <Nested
                           items={item.children}
                           close={close}
-                          mobile={mobile}
                           openKey={openKey}
                           setOpenKey={setOpenKey}
                           parentKey={key}
@@ -176,14 +182,14 @@ export default function Navbar() {
             </ul>
 
             {/* Button inside the panel — only visible on mobile */}
-            <a href="#" className="nav-btn nav-btn-mobile" onClick={handleEnquiry}>
+            <a href="#" className="nav-btn site-cta nav-btn-mobile" onClick={handleEnquiry}>
               <span>Get In Touch</span>
             </a>
           </nav>
 
           {/* RIGHT — button + hamburger */}
           <div className="nav-actions">
-            <a href="#" className="nav-btn nav-btn-desktop" onClick={handleEnquiry}>
+            <a href="#" className="nav-btn site-cta nav-btn-desktop" onClick={handleEnquiry}>
               <span>Get In Touch</span>
               <i className="bx bx-right-arrow-alt" />
             </a>
@@ -193,7 +199,7 @@ export default function Navbar() {
               type="button"
               aria-label={menuOpen ? "Close menu" : "Open menu"}
               aria-expanded={menuOpen}
-              onClick={() => setMenuOpen(!menuOpen)}
+              onClick={() => (menuOpen ? close() : setMenuOpen(true))}
             >
               <span className="bar" />
               <span className="bar" />

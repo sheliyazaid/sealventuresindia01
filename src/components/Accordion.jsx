@@ -8,7 +8,7 @@ export default function Accordion({ items, variant = "home" }) {
       <div>
         {items.map((item, i) => (
           <div className={`accordion-item ${open === i ? "active" : ""}`} key={item.title}>
-            <button className="accordion-header" type="button" onClick={() => setOpen(open === i ? -1 : i)}>
+            <button className="accordion-header" type="button" aria-expanded={open === i} onClick={() => setOpen(open === i ? -1 : i)}>
               {item.title}
               <span className="icon">↓</span>
             </button>
@@ -25,11 +25,11 @@ export default function Accordion({ items, variant = "home" }) {
     <div className="accordion">
       {items.map((item, i) => (
         <div className={`acc-item ${open === i ? "active" : ""}`} key={item.title}>
-          <div className="acc-head" onClick={() => setOpen(open === i ? -1 : i)}>
+            <button className="acc-head" type="button" aria-expanded={open === i} onClick={() => setOpen(open === i ? -1 : i)}>
             {item.title}
             <span className="arrow">↓</span>
-          </div>
-          <div className="acc-body">{item.body}</div>
+            </button>
+            <div className="acc-body"><p>{item.body}</p></div>
         </div>
       ))}
     </div>
