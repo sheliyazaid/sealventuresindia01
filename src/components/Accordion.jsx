@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { ChevronDown } from "lucide-react";
 
 export default function Accordion({ items, variant = "home" }) {
   const [open, setOpen] = useState(0);
@@ -10,7 +11,7 @@ export default function Accordion({ items, variant = "home" }) {
           <div className={`accordion-item ${open === i ? "active" : ""}`} key={item.title}>
             <button className="accordion-header" type="button" aria-expanded={open === i} onClick={() => setOpen(open === i ? -1 : i)}>
               {item.title}
-              <span className="icon">↓</span>
+              <span className="icon"><ChevronDown size={18} aria-hidden="true" /></span>
             </button>
             <div className="accordion-content">
               <p>{item.body}</p>
@@ -27,7 +28,7 @@ export default function Accordion({ items, variant = "home" }) {
         <div className={`acc-item ${open === i ? "active" : ""}`} key={item.title}>
             <button className="acc-head" type="button" aria-expanded={open === i} onClick={() => setOpen(open === i ? -1 : i)}>
             {item.title}
-            <span className="arrow">↓</span>
+            <span className="arrow"><ChevronDown size={18} aria-hidden="true" /></span>
             </button>
             <div className="acc-body"><p>{item.body}</p></div>
         </div>

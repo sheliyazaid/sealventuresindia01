@@ -119,6 +119,22 @@ ul {
    block hata ke uski jagah ye paste kar (.top-header wala part mat chhedna).
    ===================================================================== */
 
+/* =====================================================================
+   NAVBAR CSS — poora (desktop + mobile)
+
+   KAISE PASTE KARNA HAI:
+   1. Apni CSS mein purana ".navbar {" se ".nav-overlay { display:none }" tak
+      ka poora navbar block delete kar (.top-header ko mat chhedna).
+   2. Apne purane "@media (max-width: 1024px)" ke andar se navbar wale rules
+      delete kar (.menu-toggle, .nav-right, .nav-list, .nav-item>a, .dropdown,
+      .submenu, .nav-item.open ...).
+   3. Ye poori file wahin paste kar de.
+   ===================================================================== */
+
+/* =====================================================================
+   DESKTOP
+   ===================================================================== */
+
 .navbar {
   --nav-h: 76px;
   --nav-ease: cubic-bezier(0.22, 0.8, 0.28, 1);
@@ -180,6 +196,9 @@ ul {
   align-items: stretch;
   gap: 4px;
   height: 100%;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .nav-item {
@@ -218,16 +237,23 @@ ul {
 
 /* underline grows from the centre */
 .nav-item>a::after {
-  display: none;
+  content: "";
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 18px;
+  height: 2px;
+  background: var(--brand);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.3s var(--nav-ease);
 }
 
-.nav-item:hover>a,
 .nav-item.open>a,
 .nav-item>a.active {
   color: var(--brand);
 }
 
-.nav-item:hover>a::after,
 .nav-item.open>a::after,
 .nav-item>a.active::after {
   transform: scaleX(1);
@@ -245,9 +271,8 @@ ul {
   transition: transform 0.3s var(--nav-ease);
 }
 
-.has-dropdown:hover>a .caret,
-.has-dropdown:focus-within>a .caret,
-.has-dropdown.open>a .caret {
+.has-dropdown.open>a .caret,
+.has-dropdown:has(:focus-visible)>a .caret {
   transform: translateY(1px) rotate(225deg);
 }
 
@@ -255,39 +280,127 @@ ul {
 .dropdown,
 .submenu {
   position: absolute;
-  left: 0;
   min-width: 260px;
-  background: var(--paper);
-  border: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
-  border-top: 3px solid var(--brand);
-  border-radius: 0 0 10px 10px;
+  list-style: none;
+  margin: 0;
   padding: 8px;
-  box-shadow: 0 18px 40px color-mix(in srgb, var(--ink) 16%, transparent);
+  background: var(--paper);
+  border: 1px solid color-mix(in srgb, var(--ink) 8%, transparent);
+  border-radius: 12px;
+  box-shadow:
+    0 2px 6px color-mix(in srgb, var(--ink) 6%, transparent),
+    0 24px 48px -12px color-mix(in srgb, var(--ink) 24%, transparent);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
   z-index: 20;
-  transition: opacity 0.22s ease, transform 0.3s var(--nav-ease), visibility 0s linear 0.3s;
+  transform-origin: top left;
+  /* close hone mein thoda delay = tirchha mouse movement forgive */
+  transition:
+    opacity 0.18s ease 0.1s,
+    transform 0.25s var(--nav-ease) 0.1s,
+    visibility 0s linear 0.35s;
 }
 
 .dropdown {
   top: 100%;
-  transform: translateY(12px);
+  left: 0;
+  transform: translateY(10px) scale(0.98);
+}
+
+/* notch (chhota triangle) */
+.dropdown::after {
+  content: "";
+  position: absolute;
+  top: -7px;
+  left: 28px;
+  width: 12px;
+  height: 12px;
+  background: var(--paper);
+  border-left: 1px solid color-mix(in srgb, var(--ink) 8%, transparent);
+  border-top: 1px solid color-mix(in srgb, var(--ink) 8%, transparent);
+  transform: rotate(45deg);
+  pointer-events: none;
 }
 
 .submenu {
-  top: -1px;
-  left: calc(100% - 1px);
-  transform: translateX(10px);
-  border-top: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
-  border-radius: 10px;
+  top: -9px;
+  left: calc(100% + 10px);
+  transform: translateX(-8px) scale(0.98);
 }
 
-.has-dropdown:hover>.dropdown,
-.has-dropdown:focus-within>.dropdown,
+/* hover bridge: dropdown se submenu tak jaate hue gap mein band na ho */
+.submenu::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -16px;
+  width: 16px;
+}
+
+.has-submenu {
+  position: relative;
+}
+
+/* ---- OPEN STATES ---- */
+
+/* mouse hover (sirf real desktop) */
+@media (hover: hover) and (min-width: 1025px) {
+
+  .nav-item:hover>a {
+    color: var(--brand);
+  }
+
+  .nav-item:hover>a::after {
+    transform: scaleX(1);
+  }
+
+  .has-dropdown:hover>a .caret {
+    transform: translateY(1px) rotate(225deg);
+  }
+
+  .has-dropdown:hover>.dropdown,
+  .has-submenu:hover>.submenu {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: none;
+    transition-delay: 0s;
+  }
+
+  /* items stagger */
+  .has-dropdown:hover>.dropdown>li {
+    animation: itemIn 0.38s var(--nav-ease) both;
+  }
+
+  .has-submenu:hover>a {
+    background: color-mix(in srgb, var(--brand) 10%, var(--paper));
+    color: var(--brand);
+    transform: translateX(3px);
+  }
+
+  .has-submenu:hover>a::before {
+    height: 55%;
+  }
+
+  .has-submenu:hover>a .caret-sub {
+    transform: translateX(3px) rotate(-45deg);
+  }
+
+  /* link click ke baad band rakho jab tak mouse dusre item pe na jaye */
+  .navbar.hide-hover .has-dropdown>.dropdown,
+  .navbar.hide-hover .has-submenu>.submenu {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+/* keyboard focus + touch (tap) open */
+.has-dropdown:has(:focus-visible)>.dropdown,
+.has-submenu:has(:focus-visible)>.submenu,
 .nav-item.open>.dropdown,
-.has-submenu:hover>.submenu,
-.has-submenu:focus-within>.submenu,
 .has-submenu.open>.submenu {
   opacity: 1;
   visibility: visible;
@@ -296,54 +409,88 @@ ul {
   transition-delay: 0s;
 }
 
-.has-submenu {
-  position: relative;
+.has-dropdown.open>.dropdown>li {
+  animation: itemIn 0.38s var(--nav-ease) both;
 }
 
+/* last 2 items: screen se bahar na jaye */
+.nav-item:nth-last-child(-n + 2)>.dropdown {
+  left: auto;
+  right: 0;
+  transform-origin: top right;
+}
+
+.nav-item:nth-last-child(-n + 2)>.dropdown::after {
+  left: auto;
+  right: 28px;
+}
+
+.nav-item:nth-last-child(-n + 2) .submenu {
+  left: auto;
+  right: calc(100% + 10px);
+  transform-origin: top right;
+}
+
+.nav-item:nth-last-child(-n + 2) .submenu::before {
+  left: auto;
+  right: -16px;
+}
+
+/* items */
 .dropdown a,
 .submenu a {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 11px 12px;
-  border-radius: 6px;
+  padding: 11px 14px;
+  border-radius: 8px;
   font-size: 14px;
   font-weight: 500;
   line-height: 1.45;
-  color: #313a46;
+  color: var(--ink);
   white-space: normal;
-  transition: background 0.2s ease, color 0.2s ease, padding-left 0.3s var(--nav-ease);
+  transition: background 0.2s ease, color 0.2s ease, transform 0.3s var(--nav-ease);
+}
+
+/* left accent bar */
+.dropdown a::before,
+.submenu a::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 3px;
+  height: 0;
+  border-radius: 3px;
+  background: var(--brand);
+  transform: translateY(-50%);
+  transition: height 0.25s var(--nav-ease);
 }
 
 .dropdown a:hover,
 .submenu a:hover,
-.has-submenu:hover>a {
-  background: color-mix(in srgb, var(--brand) 14%, var(--paper));
-  color: #151b24;
-  padding-left: 17px;
+.has-submenu.open>a {
+  background: color-mix(in srgb, var(--brand) 10%, var(--paper));
+  color: var(--brand);
+  transform: translateX(3px);
+}
+
+.dropdown a:hover::before,
+.submenu a:hover::before,
+.has-submenu.open>a::before,
+.dropdown a.active::before {
+  height: 55%;
 }
 
 .dropdown a.active {
   color: var(--brand);
-}
-
-.dropdown a.active:hover {
-  color: var(--ink);
+  font-weight: 600;
 }
 
 .caret-sub {
   transform: rotate(-45deg);
-}
-
-.has-submenu:hover>a .caret-sub {
-  transform: translateX(3px) rotate(-45deg);
-}
-
-/* dropdown items stagger in */
-.has-dropdown:hover>.dropdown>li,
-.has-dropdown:focus-within>.dropdown>li {
-  animation: itemIn 0.38s var(--nav-ease) both;
 }
 
 .dropdown>li:nth-child(2) {
@@ -503,17 +650,7 @@ ul {
 
 
 /* =====================================================================
-   PART 2 — MOBILE / TABLET
-   Teri CSS ke "@media (max-width: 1024px)" block ke andar se ye purani
-   navbar rules hata de:
-     .menu-toggle { display: flex; }
-     .nav-right { ... }  aur  .nav-right.show { ... }
-     .nav-menu > .nav-list, .nav-list { ... }
-     .nav-menu > .nav-list > .nav-item > a { ... }
-     .nav-menu > .nav-list > .nav-item > a::after { ... }
-     .dropdown, .submenu { ... }
-     .nav-item.open > .dropdown, .has-submenu.open > .submenu { ... }
-   Phir ye naya block 1024px media query ke andar paste kar.
+   MOBILE / TABLET
    ===================================================================== */
 
 @media (max-width: 1024px) {
@@ -590,31 +727,31 @@ ul {
   .submenu {
     position: static;
     min-width: 0;
-    padding-left: 12px;
+    padding: 0 0 0 12px;
+    margin-left: 6px;
     border: 0;
+    border-left: 2px solid var(--line);
+    border-radius: 0;
     box-shadow: none;
+    background: transparent;
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
     transform: none;
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.4s var(--nav-ease);
+    transition: max-height 0.4s var(--nav-ease), padding 0.3s ease;
+  }
+
+  .dropdown::after,
+  .submenu::before {
+    display: none;
   }
 
   .nav-item.open>.dropdown,
   .has-submenu.open>.submenu {
     max-height: 1200px;
-  }
-
-  /* desktop hover reveal band */
-  .has-dropdown:hover>.dropdown:not(:focus-within),
-  .has-submenu:hover>.submenu:not(:focus-within) {
-    transform: none;
-  }
-
-  .has-dropdown:hover>.dropdown>li {
-    animation: none;
+    padding: 4px 0 8px 12px;
   }
 
   .dropdown a,
@@ -624,20 +761,12 @@ ul {
 
   .dropdown a:hover,
   .submenu a:hover,
-  .has-submenu:hover>a {
-    padding-left: 8px;
-  }
-
-  .has-dropdown:hover>a .caret {
-    transform: translateY(-2px) rotate(45deg);
+  .has-submenu.open>a {
+    transform: none;
   }
 
   .has-dropdown.open>a .caret {
     transform: translateY(1px) rotate(225deg);
-  }
-
-  .has-submenu:hover>a .caret-sub {
-    transform: rotate(-45deg);
   }
 
   .has-submenu.open>a .caret-sub {
@@ -904,7 +1033,6 @@ ul {
 .feature,
 .why-card,
 .product-slider-section .product-card,
-.industry-card,
 .review-card,
 .certificate-card,
 .product-img img,
@@ -1270,7 +1398,7 @@ ul {
   min-width: 54px;
   padding: 5px 12px 7px 15px;
   background: var(--brand);
-  color: var(--ink);
+  color: white;
   font-size: 16px;
   font-weight: 700;
   line-height: 1.2;
@@ -1336,6 +1464,7 @@ ul {
 
 .enquiry-flex {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 24px;
@@ -1364,6 +1493,7 @@ ul {
   border: 2px solid var(--brand);
   border-radius: 50%;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: 12px;
@@ -1388,7 +1518,7 @@ ul {
   min-width: 240px;
   height: 320px;
   overflow: hidden;
-  background: var(--ink);
+  /* background: var(--ink); */
 }
 
 .industry-card .industry-image {
@@ -1805,7 +1935,7 @@ ul {
   bottom: 24px;
   right: 24px;
   z-index: 100;
-  background: var(--brand);
+  background: var(--brand) !important;
   color: var(--ink);
   border: 0;
   width: 40px;
@@ -2346,7 +2476,7 @@ ul {
   .product-slider-section .product-card,
   .industry-card,
   .review-card {
-    flex-basis: 88%;
+    flex-basis: 100%;
   }
 
   .enquiry-flex,
@@ -2460,6 +2590,7 @@ ul {
   transform: translateY(-2px);
   border-color: var(--brand);
   background: var(--brand);
+  color: white;
 }
 
 .slider-btn:disabled {
@@ -2575,8 +2706,8 @@ ul {
 }
 
 .industry-card {
+  border: 10px solid var(--line);
   height: 340px;
-  border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
   border-radius: 8px;
   box-shadow: 0 10px 26px color-mix(in srgb, var(--ink) 10%, transparent);
 }
@@ -2701,9 +2832,9 @@ ul {
 }
 
 .reach-what .acc-item.active .arrow {
-  transform: rotate(180deg);
+  transform: rotate(0deg);
   background: var(--brand);
-  color: var(--ink);
+  color: white !important;
 }
 
 .reach-what .acc-body {
@@ -3137,17 +3268,16 @@ ul {
 
 .enquiry-flex {
   position: relative;
-  max-width: 1480px;
   justify-content: space-between;
   gap: 36px;
   text-align: left;
 }
 
 .enquiry-text {
-  max-width: 580px;
+  max-width: 600px;
   font-size: 21px;
   line-height: 1.55;
-  text-align: left;
+  text-align: center;
 }
 
 .enquiry-text b {
@@ -3171,7 +3301,6 @@ ul {
   height: auto;
   padding: 4px 14px;
   border: 0;
-  border-left: 1px solid color-mix(in srgb, var(--paper) 22%, transparent);
   border-radius: 0;
   color: color-mix(in srgb, var(--paper) 58%, transparent);
   font-size: 11px;
@@ -3301,5 +3430,124 @@ ul {
 
   .reach-right h2 {
     font-size: 28px;
+  }
+}
+
+.why-track,
+.product-track,
+.industries-track,
+.reviews-track {
+  -webkit-overflow-scrolling: touch;
+}
+
+.why-track::before,
+.why-track::after,
+.product-track::before,
+.product-track::after,
+.industries-track::before,
+.industries-track::after,
+.reviews-track::before,
+.reviews-track::after {
+  content: "";
+  flex: 0 0 4px;
+}
+
+.why-track::before,
+.product-track::before,
+.industries-track::before,
+.reviews-track::before {
+  margin-right: -16px;
+}
+
+.why-track::after,
+.product-track::after,
+.industries-track::after,
+.reviews-track::after {
+  margin-left: -16px;
+}
+
+.industry-card {
+  border: 2px solid var(--line) !important;
+}
+
+.industries {
+  background-image: none;
+  background-size: auto;
+}
+
+.reach-what .acc-item {
+  border-radius: 8px;
+  box-shadow: none;
+}
+
+.reach-what .acc-item.active {
+  box-shadow: 0 8px 20px color-mix(in srgb, var(--ink) 7%, transparent);
+}
+
+.reach-what .acc-head {
+  min-height: 64px;
+  padding: 14px 18px;
+  line-height: 1.4;
+}
+
+.reach-what .acc-head .arrow {
+  width: 32px;
+  height: 32px;
+  flex-basis: 32px;
+  border-color: color-mix(in srgb, var(--brand) 35%, var(--line));
+  background: var(--paper);
+}
+
+.reach-what .acc-head .arrow svg {
+  width: 18px;
+  height: 18px;
+  transition: transform 360ms cubic-bezier(0.22, 0.8, 0.28, 1);
+}
+
+.reach-what .acc-item.active .arrow {
+  background: var(--brand);
+  color: var(--ink);
+}
+
+.reach-what .acc-item.active .arrow svg {
+  transform: rotate(180deg);
+}
+
+.reach-what .acc-body {
+  transition: grid-template-rows 420ms cubic-bezier(0.22, 0.8, 0.28, 1);
+}
+
+.reach-what .acc-body p {
+  transition: padding 360ms ease, opacity 280ms ease, transform 360ms ease;
+}
+
+#scrollTopBtn {
+  display: none;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--ink-strong);
+  color: var(--paper);
+  box-shadow: 0 8px 22px color-mix(in srgb, var(--ink) 20%, transparent);
+  transition: background 180ms ease, border-color 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+#scrollTopBtn.show {
+  display: grid;
+}
+
+#scrollTopBtn:hover {
+  transform: translateY(-2px);
+}
+
+#scrollTopBtn:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 3px;
+}
+
+@media (max-width: 768px) {
+  .reach-what .acc-head {
+    padding: 14px 15px;
   }
 }

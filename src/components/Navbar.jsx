@@ -3,12 +3,21 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 import { NAV } from "../data/site";
 import { useEnquiry } from "../context/EnquiryContext";
 
+/* Mouse wale desktop pe sirf hover se dropdown khulta hai.
+   Touch device (phone / iPad) pe tap se toggle hota hai. */
+const canHover = () =>
+  typeof window !== "undefined" &&
+  window.matchMedia("(hover: hover) and (min-width: 1025px)").matches;
+
+const isOpenKey = (openKey, key) =>
+  openKey === key || openKey.startsWith(key + "/");
+
 function Nested({ items, close, openKey, setOpenKey, parentKey = "" }) {
   return items.map((item) => {
-    const key = parentKey + item.label;
+    const key = parentKey ? `${parentKey}/${item.label}` : item.label;
 
     if (item.children) {
-      const open = openKey === key || openKey.startsWith(key);
+      const open = isOpenKey(openKey, key);
       return (
         <li key={key} className={`has-submenu ${open ? "open" : ""}`}>
           <a
@@ -17,6 +26,7 @@ function Nested({ items, close, openKey, setOpenKey, parentKey = "" }) {
             aria-expanded={open}
             onClick={(e) => {
               e.preventDefault();
+              if (canHover()) return; // desktop mouse: sirf hover
               setOpenKey(open ? parentKey : key);
             }}
           >
@@ -61,6 +71,7 @@ export default function Navbar() {
   const [openKey, setOpenKey] = useState("");
   const [mobile, setMobile] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [hideHover, setHideHover] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -93,6 +104,7 @@ export default function Navbar() {
   const close = () => {
     setMenuOpen(false);
     setOpenKey("");
+    setHideHover(true); // link click ke baad dropdown turant band
   };
 
   const handleEnquiry = (e) => {
@@ -100,6 +112,9 @@ export default function Navbar() {
     openEnquiry();
     close();
   };
+
+  // mouse kisi top-level item pe aaye to hover wapas on
+  const reEnableHover = () => setHideHover(false);
 
   return (
     <>
@@ -120,12 +135,18 @@ export default function Navbar() {
       </div>
 
       <header
-        className={`navbar ${scrolled ? "scrolled" : ""}`}
+        className={`navbar ${scrolled ? "scrolled" : ""} ${hideHover ? "hide-hover" : ""}`}
         onMouseLeave={() => {
+          setHideHover(false);
           if (!mobile) setOpenKey("");
         }}
         onKeyDown={(e) => {
-          if (e.key === "Escape") close();
+          if (e.key === "Escape") {
+            close();
+            if (document.activeElement instanceof HTMLElement) {
+              document.activeElement.blur();
+            }
+          }
         }}
       >
         <div className="container nav-flex">
@@ -144,15 +165,21 @@ export default function Navbar() {
 
                 if (item.children) {
                   const key = item.label;
-                  const open = openKey === key || openKey.startsWith(key);
+                  const open = isOpenKey(openKey, key);
                   return (
-                    <li key={key} style={style} className={`nav-item has-dropdown ${open ? "open" : ""}`}>
+                    <li
+                      key={key}
+                      style={style}
+                      onMouseEnter={reEnableHover}
+                      className={`nav-item has-dropdown ${open ? "open" : ""}`}
+                    >
                       <a
                         href="#"
                         aria-haspopup="true"
                         aria-expanded={open}
                         onClick={(e) => {
                           e.preventDefault();
+                          if (canHover()) return; // desktop mouse: sirf hover
                           setOpenKey(open ? "" : key);
                         }}
                       >
@@ -172,8 +199,17 @@ export default function Navbar() {
                 }
 
                 return (
-                  <li className="nav-item" key={item.to} style={style}>
-                    <NavLink to={item.to} onClick={close} className={({ isActive }) => (isActive ? "active" : undefined)}>
+                  <li
+                    className="nav-item"
+                    key={item.to}
+                    style={style}
+                    onMouseEnter={reEnableHover}
+                  >
+                    <NavLink
+                      to={item.to}
+                      onClick={close}
+                      className={({ isActive }) => (isActive ? "active" : undefined)}
+                    >
                       {item.label}
                     </NavLink>
                   </li>
