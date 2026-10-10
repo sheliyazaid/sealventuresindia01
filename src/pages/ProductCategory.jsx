@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import PageHero from "../components/PageHero";
 import ProductSpec from "../components/ProductSpec";
 import EnquiryStrip from "../components/EnquiryStrip";
+import Testimonials from "../components/Testimonials";
 import { PRODUCT_PAGES } from "../data/products";
 
 export default function ProductCategory() {
@@ -37,6 +38,7 @@ export default function ProductCategory() {
         <ProductSpec key={product.id} product={product} reverse={i % 2 === 1} />
       ))}
       <EnquiryStrip />
+      <Testimonials />
     </>
   );
 }

@@ -1,6 +1,7 @@
 import PageHero from "../components/PageHero";
 import FaceCard from "../components/FaceCard";
 import EnquiryStrip from "../components/EnquiryStrip";
+import Testimonials from "../components/Testimonials";
 import { FACE_ITEMS, SPARE_ITEMS } from "../data/products";
 
 export default function FaceComponents() {
@@ -59,6 +60,7 @@ export default function FaceComponents() {
         </div>
       </section>
       <EnquiryStrip />
+      <Testimonials />
     </>
   );
 }
