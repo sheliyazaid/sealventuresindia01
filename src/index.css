@@ -2476,7 +2476,7 @@ ul {
   .product-slider-section .product-card,
   .industry-card,
   .review-card {
-    flex-basis: 100%;
+    flex-basis: 90%;
   }
 
   .enquiry-flex,
