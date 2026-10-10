@@ -153,7 +153,7 @@ export default function Navbar() {
           {/* LEFT — logo */}
           <div className="logo">
             <Link to="/" onClick={close}>
-              <img src="/img/Logo.png" alt="Sealventures" />
+              <img src="/img/logo.png" alt="Sealventures" />
             </Link>
           </div>
 

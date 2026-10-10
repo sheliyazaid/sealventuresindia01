@@ -6,8 +6,7 @@ import Accordion from "../components/Accordion";
 import StarRating from "../components/StarRating";
 import Slider from "../components/Slider";
 
-const VIDEOS = ["\\videos\\Video 1.mp4", "/videos/Video 2.mp4", "/videos/Video 3.mp4", "/videos/Video 4.mp4"];
-const videos = ["C:\\Users\\Saalim\\Downloads\\Sealventures\\videos\\Video 1.mp4"];
+const VIDEOS = ["/videos/Video 1.mp4", "/videos/Video 2.mp4", "/videos/Video 3.mp4", "/videos/Video 4.mp4"];
 const WHY_ICONS = ["bx-cog", "bx-wrench", "bx-check-shield", "bx-customize", "bx-trending-up", "bx-world", "bx-medal", "bx-group"];
 
 export default function Home() {
