@@ -1258,17 +1258,23 @@ ul {
 .topLine,
 .section-tag,
 .manage-tag {
-  display: inline-block;
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--brand);
-  margin-bottom: 12px;
-  position: relative;
-  padding-left: 32px;
-  letter-spacing: 0.06em;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  max-width: 100%;
+  margin-bottom: 14px;
+  padding: 0;
+  border: 0;
+  color: color-mix(in srgb, var(--brand) 85%, var(--ink-strong));
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
+/* aage wala dhadakta dot */
 .about-tag::before,
 .about-tagg::before,
 .why-tag::before,
@@ -1277,13 +1283,43 @@ ul {
 .section-tag::before,
 .manage-tag::before {
   content: "";
-  position: absolute;
-  left: 0;
-  top: 50%;
-  width: 24px;
-  height: 2px;
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
   background: var(--brand);
-  transform: translateY(-50%);
+  animation: eyebrowPulse 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  will-change: transform, box-shadow;
+}
+
+@keyframes eyebrowPulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--brand) 45%, transparent);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+  70% {
+    box-shadow: 0 0 0 10px color-mix(in srgb, var(--brand) 0%, transparent);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--brand) 0%, transparent);
+  }
+}
+
+/* jo log reduced motion use karte hain unke liye animation band */
+@media (prefers-reduced-motion: reduce) {
+  .about-tag::before,
+  .about-tagg::before,
+  .why-tag::before,
+  .small-title::before,
+  .topLine::before,
+  .section-tag::before,
+  .manage-tag::before {
+    animation: none;
+  }
 }
 
 .about-content h2,
@@ -2117,7 +2153,7 @@ ul {
 
 .feature-row {
   display: grid;
-  grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+  grid-template-columns: repeat(2,1fr);
   align-items: center;
   gap: clamp(28px, 5vw, 72px);
   padding: clamp(36px, 5vw, 64px) var(--page-x);
@@ -2156,7 +2192,7 @@ ul {
   margin-bottom: 18px;
 }
 
-.feature-num {
+.feature-num, .feature-numm {
   flex: 0 0 50px;
   width: 50px;
   height: 50px;
@@ -2197,47 +2233,84 @@ ul {
 
 .management-heading {
   text-align: center;
-  margin-bottom: 32px;
+  margin-bottom: 20px;
   padding: 0 var(--page-x);
 }
 
 .manager-row {
-  display: flex;
+  /* max-width: 1440px; */
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: minmax(220px, 290px) minmax(0, 1fr);
   align-items: center;
-  gap: 40px;
-  padding: 40px var(--page-x);
+  gap: clamp(28px, 3.5vw, 48px);
+  padding: 34px var(--page-x);
 }
 
 .manager-row.grey-bg {
   background: var(--wash);
+  background-image: radial-gradient(circle, color-mix(in srgb, var(--ink) 5%, transparent) 0.8px, transparent 0.9px);
+  background-size: 22px 22px;
 }
 
 .manager-row.reverse {
-  flex-direction: row-reverse;
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 290px);
+}
+
+.manager-row.reverse .manager-img {
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: end;
+}
+
+.manager-row.reverse .manager-content {
+  grid-column: 1;
+  grid-row: 1;
 }
 
 .manager-img {
-  flex: 0 0 280px;
+  width: min(100%, 290px);
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: transparent;
 }
 
 .manager-img img {
   width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
 }
 
 .manager-content h2 {
-  font-size: 28px;
-  margin-bottom: 12px;
+  font-size: 24px;
   font-weight: 700;
+}
+
+/* .manager-content {
+  max-width: 780px;
+} */
+
+.manager-content .feature-head {
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.manager-content .feature-head h2 {
+  margin: 0;
 }
 
 .manager-content .meta {
   font-size: 14px;
   color: var(--muted);
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
 .manager-content p {
   font-size: 16px;
+  line-height: 1.65;
   color: var(--muted);
 }
 
@@ -2539,6 +2612,9 @@ ul {
 
   .navbar.scrolled .logo img {
     height: 38px;
+  }
+  .feature-numm{
+    display: none;
   }
 }
 
@@ -2889,6 +2965,21 @@ ul {
   padding: 0 20px 18px;
   opacity: 1;
   transform: none;
+}
+
+/* .management-what-we-do .container {
+  max-width: 1100px;
+} */
+
+.management-what-we-do h2 {
+  /* max-width: 680px; */
+  margin-bottom: 24px;
+  font-size: 34px;
+  line-height: 1.2;
+}
+
+.management-what-we-do .accordion {
+  gap: 10px;
 }
 
 .review-card {
@@ -3665,6 +3756,103 @@ ul {
 @media (max-width: 768px) {
   .reach-what .acc-head {
     padding: 14px 15px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .manager-row {
+    grid-template-columns: minmax(180px, 240px) minmax(0, 1fr);
+    gap: 28px;
+    padding-block: 30px;
+  }
+
+  .manager-row.reverse {
+    grid-template-columns: minmax(0, 1fr) minmax(180px, 240px);
+  }
+
+  .manager-img {
+    width: min(100%, 240px);
+  }
+
+  .manager-content h2 {
+    font-size: 20px;
+  }
+
+  .manager-content p {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .manager-row,
+  .manager-row.reverse {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+    padding-block: 26px;
+  }
+
+  .manager-row.reverse .manager-img,
+  .manager-row.reverse .manager-content {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .manager-img {
+    width: min(100%, 230px);
+    justify-self: center;
+  }
+
+  .manager-content .feature-head {
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .manager-content h2 {
+    font-size: 18px;
+  }
+
+  .manager-content .meta {
+    font-size: 12px;
+  }
+
+  .manager-content p {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .management-what-we-do h2 {
+    font-size: 28px;
+  }
+
+  .management-what-we-do .acc-head {
+    font-size: 14px;
+  }
+
+  .management-what-we-do .acc-body p {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 768px) {
+  .management-what-we-do h2 {
+    font-size: 24px;
+  }
+
+  .management-what-we-do .acc-head {
+    gap: 12px;
+    min-height: 56px;
+    padding: 14px 15px;
+    font-size: 13px;
+  }
+
+  .management-what-we-do .acc-body p {
+    padding-inline: 15px;
+    font-size: 12px;
+  }
+
+  .management-what-we-do .acc-item.active .acc-body p {
+    padding: 0 15px 16px;
   }
 }
 

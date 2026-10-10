@@ -1,8 +1,7 @@
 import PageHero from "../components/PageHero";
 import EnquiryStrip from "../components/EnquiryStrip";
-import Slider from "../components/Slider";
-import StarRating from "../components/StarRating";
-import { OVERVIEW_FEATURES, REVIEWS, enc } from "../data/site";
+import Testimonials from "../components/Testimonials";
+import { OVERVIEW_FEATURES, enc } from "../data/site";
 
 const NUM_CLASS = ["blue", "lightBlue", "red", "green"];
 
@@ -71,32 +70,7 @@ export default function Overview() {
         ))}
       </section>
       <EnquiryStrip />
-            <section className="reviews-section">
-              <div className="section-header">
-                <h2 className="section-title">What our clients say about us</h2>
-                <p className="section-description">
-                  Trusted by process-industry teams for dependable sealing solutions, responsive support, and consistent product quality.
-                </p>
-              </div>
-              <div className="reviews-slider">
-                <Slider className="reviews-track">
-                  {REVIEWS.map((r) => (
-                    <div className="review-card" key={r.name}>
-                      <div className="star-rating">
-                        <StarRating />
-                      </div>
-                      <p className="review-text">“{r.text}”</p>
-                      <div className="reviewer-info">
-                        <div>
-                          <p className="reviewer-name">{r.name}</p>
-                          <p className="reviewer-role">{r.role}</p>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </Slider>
-              </div>
-            </section>
+      <Testimonials />
     </>
   );
 }

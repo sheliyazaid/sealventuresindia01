@@ -1,6 +1,7 @@
 import PageHero from "../components/PageHero";
 import Accordion from "../components/Accordion";
 import EnquiryStrip from "../components/EnquiryStrip";
+import Testimonials from "../components/Testimonials";
 import { enc } from "../data/site";
 
 export default function Management() {
@@ -16,7 +17,10 @@ export default function Management() {
             <img src={enc("/img/overview/Sahud Kadiwala.png")} alt="Sahud Imtiyaz Kadiwala" />
           </div>
           <div className="manager-content">
-            <h2>SAHUD IMTIYAZ KADIWALA</h2>
+            <div className="feature-head">
+              <span className="feature-numm">01</span>
+              <h2>SAHUD IMTIYAZ KADIWALA</h2>
+            </div>
             <p className="meta">
               <strong>[DIN-09136283]</strong>
               <br />
@@ -37,7 +41,10 @@ export default function Management() {
             <img src={enc("/img/overview/Rizwan Kadiwala.png")} alt="Rizwan Imtiyaz Kadiwala" />
           </div>
           <div className="manager-content">
-            <h2>RIZWAN IMTIYAZ KADIWALA</h2>
+            <div className="feature-head">
+              <span className="feature-numm">02</span>
+              <h2>RIZWAN IMTIYAZ KADIWALA</h2>
+            </div>
             <p className="meta">
               <strong>[DIN-09136284]</strong>
               <br />
@@ -54,12 +61,11 @@ export default function Management() {
         </div>
       </section>
 
-      <section className="what-we-do">
+      <section className="reach-what management-what-we-do" style={{ backgroundColor: "transparent", backgroundImage: "none" }}>
         <div className="container">
-          <span className="section-tag">What We Do.</span>
+          <span className="small-title">What We Do</span>
           <h2>Keeping industries running smoothly.</h2>
           <Accordion
-            variant="management"
             items={[
               { title: "Evolution Of The Mechanical Seal Market", body: "The mechanical seal market has undergone a substantial transformation driven by rapid industrialization, stringent environmental and safety regulations, and the growing emphasis on operational efficiency across critical sectors such as oil & gas, chemical processing, pharmaceuticals, and power generation." },
               { title: "Major Factors Driving Market Growth", body: "The major factors propelling market growth for Sealventures is the steady expansion of the automotive and industrial machinery sectors, rapid industrialization, increasing investments in infrastructure projects, and the rising demand for advanced, high-performance sealing solutions." },
@@ -72,6 +78,7 @@ export default function Management() {
         </div>
       </section>
       <EnquiryStrip />
+      <Testimonials />
     </>
   );
 }
