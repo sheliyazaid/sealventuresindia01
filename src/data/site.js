@@ -36,42 +36,42 @@ export const NAV = [
 export const HERO_SLIDES = [
   {
     title: "High-Tech Sealing Solution",
-    text: "SealVentures India delivers innovative mechanical seal solutions through advanced materials, precision engineering, and custom designs, ensuring superior durability, efficiency, and reliability across industries.",
+    text: "We delivers innovative mechanical seal solutions through advanced materials, precision engineering, and custom designs, ensuring superior durability, efficiency, and reliability across industries.",
   },
   {
     title: "Professional Expertise",
-    text: "SealVentures India demonstrates professional expertise in mechanical seal manufacturing through precision engineering, advanced technology integration, and unwavering commitment to global quality standards.",
+    text: "Backed by skilled engineers and years of sealing industry experience, Sealventures provides expert guidance, precision manufacturing, and customized sealing solutions for every application.",
   },
   {
     title: "Strong After-Sales Support",
-    text: "We ensure strong after-sales support by providing timely technical assistance, genuine spare parts, performance monitoring, and dedicated customer service to enhance the reliability and longevity of our mechanical seals.",
+    text: "Our dedicated technical support team ensures fast assistance, installation guidance, troubleshooting, and reliable after-sales service to keep your operations running efficiently with minimal downtime.",
   },
   {
     title: "Wide Range of Products/Services",
-    text: "We offer a wide range of precision-engineered mechanical seals and related sealing solutions, designed to meet diverse industrial applications with superior quality and reliability.",
+    text: "From OEM & replacement mechanical seals to seal support systems and custom-engineered sealing solutions, we offer complete products and services for diverse industrial requirements.",
   },
 ];
 
-export const WHY_ITEMS = [
-  { id: "item1", num: "01", title: "High-Tech Sealing System", text: "Sealventures leads industrial innovation with High-Tech sealing System, producing high-performance precision mechanical seals, elastomers, and polymers." },
-  { id: "item2", num: "02", title: "Preeminence Manufacturing", text: "Sealventures India is a leading provider of high-quality sealing systems, characterized by exceptionally high precision, done strictly in accordance with global standards like API, ANSI, ASME, and DIN." },
-  { id: "item3", num: "03", title: "Global Standards", text: "Sealventures India strictly maintains the highest quality global standards of mechanical engineering through the sourcing of all the required raw materials." },
-  { id: "item4", num: "04", title: "Customized Solutions", text: "We committed to delivering customized solutions according to the distinct operational demands of different industries." },
-  { id: "item5", num: "05", title: "Constant Development", text: "Sealventures continues to be committed to its vision of Constant development and has honed its technological expertise and procedures in order to satisfy the increasing demands of its industry." },
-  { id: "item6", num: "06", title: "Worldwide Sales and Services", text: "We boast an excellent worldwide sales and service network that makes its state-of-the-art industrial sealing solutions readily accessible in every major region of the globe." },
-  { id: "item7", num: "07", title: "Establishments Heritage", text: "Since its establishment, the Sealventures brand has upheld an excellent record of technical mastery and inventiveness in the field of industrial sealing technologies." },
-  { id: "item8", num: "08", title: "Proficient Workforce", text: "At Sealventures, our staff's expertise and commitment are the key to our success. Our skilled engineers, technicians, and quality specialists." },
+export const WHY_ITEMS = [ 
+  { id: "item1", num: "01", title: "Advanced Sealing", text: "We delivers advanced mechanical sealing solutions engineered for leak-free performance, maximum reliability, and extended equipment life" },
+  { id: "item2", num: "02", title: "Precision Manufacturing", text: "Precision engineered Seal & associated Precision Products manufactured to global quality standards for reliable industrial performance and long-lasting durability." },
+  { id: "item3", num: "03", title: "Global Standards", text: "Our products are manufactured to internationally recognized quality standards, ensuring consistent performance across diverse industrial applications." },
+  { id: "item4", num: "04", title: "Customized Solutions", text: "We develop customized solutions designed to match your equipment, operating conditions, and industry requirements." },
+  { id: "item5", num: "05", title: "Research & Innovation", text: "Continuous innovation and engineering expertise drive the development of advanced sealing technologies for modern industrial applications." },
+  { id: "item6", num: "06", title: "Competitive Pricing", text: "Cost-effective solutions without compromising quality, performance, or reliability." },
+  { id: "item7", num: "07", title: "Expert Team", text: "Our experienced engineers and technical specialists deliver expert support, innovative designs, and dependable sealing solutions." },
+  { id: "item8", num: "08", title: "A Focus on Sustainability", text: "We embrace sustainable manufacturing by optimizing resources, reducing waste, and producing durable, energyefficient sealing solutions." },
 ];
 
 export const FEATURED_PRODUCTS = [
-  { to: "/products/pusher-seal#SV-MS31DT", img: "/img/products/pusher-seal/SV-MS31DT.png", name: "SV-MS31DT" },
-  { to: "/products/bearing-isolator#SV-BI24", img: "/img/products/Bearing Isolator/SV-RJ-751.png", name: "SV-BI24" },
-  { to: "/products/non-pusher-seal#SV-TB71-R", img: "/img/products/non-pusher-seal/SV-TB71-R.png", name: "SV-TB71-R" },
-  { to: "/products/rotary-union#SV-RJD-751", img: "/img/products/Rotary Unioun/SV-RJD-751.png", name: "SV-RJD-751" },
-  { to: "/products/non-pusher-seal#SV-RBRT-51D", img: "/img/products/non-pusher-seal/SV-RBRT-51D.png", name: "SV-RBRT-51D" },
-  { to: "/products/agitator-mixer-reactor-seal#SV-AG225", img: "/img/products/AGITATOR, MIXER & REACTOR SEALS/SV-AG225.png", name: "SV-AG225" },
-  { to: "/products/non-pusher-seal#SV-MB62-G", img: "/img/products/non-pusher-seal/SV-MB61-G.png", name: "SV-MB62-G" },
-  { to: "/products/supply-system#SV-TS780", img: "/img/FEATURES PRODUCT/Features Products.png", name: "SV-TS780" },
+  { to: "/products/pusher-seal#SV-MS31DT", img: "/img/FEATURES PRODUCT/CN12.png", name: "SV-MS31DT" },
+  { to: "/products/bearing-isolator#SV-BI24", img: "/img/FEATURES PRODUCT/DCT201.png", name: "SV-BI24" },
+  { to: "/products/non-pusher-seal#SV-TB71-R", img: "/img/FEATURES PRODUCT/DR125.png", name: "SV-TB71-R" },
+  { to: "/products/rotary-union#SV-RJD-751", img: "/img/FEATURES PRODUCT/MB61-G.png", name: "SV-RJD-751" },
+  { to: "/products/non-pusher-seal#SV-RBRT-51D", img: "/img/FEATURES PRODUCT/SBI-001.png", name: "SV-RBRT-51D" },
+  { to: "/products/agitator-mixer-reactor-seal#SV-AG225", img: "/img/FEATURES PRODUCT/SLTH502.png", name: "SV-AG225" },
+  { to: "/products/non-pusher-seal#SV-MB62-G", img: "/img/FEATURES PRODUCT/SRU-MF.png", name: "SV-MB62-G" },
+  { to: "/products/supply-system#SV-TS780", img: "/img/FEATURES PRODUCT/TS780.png", name: "SV-TS780" },
 ];
 
 export const INDUSTRIES = [

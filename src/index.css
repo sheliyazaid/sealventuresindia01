@@ -820,6 +820,7 @@ ul {
   align-items: center;
   justify-content: center;
   background: var(--ink);
+  touch-action: pan-y;
 }
 
 .landing-bg-container::after {
@@ -1026,7 +1027,7 @@ ul {
 .features {
   flex: 1;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 16px;
 }
 
@@ -1681,10 +1682,6 @@ ul {
   align-items: flex-start;
 }
 
-.reach-left,
-.reach-right {
-  flex: 1;
-}
 
 .world-map {
   width: 100%;
@@ -3073,7 +3070,7 @@ ul {
 }
 
 .reach-what .acc-item.active .acc-body p {
-  padding: 0 20px 18px;
+  padding: 14px 18px;
   opacity: 1;
   transform: none;
 }
@@ -3521,6 +3518,9 @@ ul {
 .enquiry-btn,
 .call-box {
   white-space: nowrap;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .or-box {
@@ -3553,7 +3553,7 @@ ul {
 }
 
 .reach-flex {
-  max-width: 1480px;
+  /* max-width: 1480px; */
   align-items: center;
   gap: clamp(36px, 6vw, 88px);
 }
@@ -3562,17 +3562,68 @@ ul {
   min-width: 0;
 }
 
+.reach-left img {
+  filter: brightness(0.5);
+  opacity: 0.7;
+}
+
 .reach-left .small-title,
 .reach-right .small-title {
   margin-bottom: 14px;
 }
 
 .world-map {
-  max-width: 560px;
+  max-width: 650px;
   padding: 18px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--paper);
+  /* filter: brightness(0.5); */
+  /* border: 1px solid var(--line); */
+  /* border-radius: 8px; */
+  /* background: var(--paper); */
+}
+
+.map-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.map-wrap .world-map {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.map-dot {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  /* transform use nahi kar sakte centering ke liye, kyunki animation transform: scale use karti hai */
+  margin: -5px 0 0 -5px;
+  border-radius: 50%;
+  background: var(--brand);
+  animation: eyebrowPulse 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  will-change: transform, box-shadow;
+  cursor: pointer;
+}
+
+/* hover pe state ka naam */
+.map-dot-label {
+  position: absolute;
+  bottom: 160%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: var(--ink-strong);
+  color: #fff;
+  font-size: 11px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+
+.map-dot:hover .map-dot-label {
+  opacity: 1;
 }
 
 .reach-right h2 {
@@ -4080,4 +4131,3 @@ ul {
     flex-wrap: wrap;
   }
 }
-

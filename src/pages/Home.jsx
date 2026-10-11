@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { FEATURED_PRODUCTS, HERO_SLIDES, INDUSTRIES, REVIEWS, WHY_ITEMS, enc } from "../data/site";
 import EnquiryStrip from "../components/EnquiryStrip";
@@ -6,37 +6,71 @@ import Accordion from "../components/Accordion";
 import StarRating from "../components/StarRating";
 import Slider from "../components/Slider";
 
-const VIDEOS = ["/videos/Video 1.mp4", "/videos/Video 2.mp4", "/videos/Video 3.mp4", "/videos/Video 4.mp4"];
+const IMGSLIDES = ["/img/homepage/slider1.png", "/img/homepage/slider2.png", "/img/homepage/slider3.png", "/img/homepage/slider4.png"];
 const WHY_ICONS = ["bx-cog", "bx-wrench", "bx-check-shield", "bx-customize", "bx-trending-up", "bx-world", "bx-medal", "bx-group"];
+
+const STATES = [
+  { name: "Gujarat",       top: "49%", left: "12%" },
+  { name: "Maharashtra",   top: "60%", left: "26%" },
+  { name: "Delhi",         top: "29%", left: "31%" },
+  { name: "Uttar Pradesh", top: "35%", left: "44%" },
+  { name: "Tamil Nadu",    top: "89%", left: "36%" },
+];
 
 export default function Home() {
   const [slide, setSlide] = useState(0);
   const [openIndustry, setOpenIndustry] = useState(null);
   const [videoOk, setVideoOk] = useState(true);
+  const heroPointer = useRef(null);
 
   useEffect(() => {
     const timer = setInterval(() => setSlide((s) => (s + 1) % HERO_SLIDES.length), 7000);
     return () => clearInterval(timer);
   }, []);
 
+  const onHeroPointerDown = (event) => {
+    if (event.target.closest(".hero-dot")) return;
+    heroPointer.current = { x: event.clientX, y: event.clientY };
+  };
+
+  const onHeroPointerUp = (event) => {
+    const start = heroPointer.current;
+    heroPointer.current = null;
+    if (!start) return;
+
+    const deltaX = event.clientX - start.x;
+    const deltaY = event.clientY - start.y;
+    if (Math.abs(deltaX) < 48 || Math.abs(deltaX) < Math.abs(deltaY)) return;
+
+    setSlide((current) => (current + (deltaX < 0 ? 1 : -1) + HERO_SLIDES.length) % HERO_SLIDES.length);
+  };
+
   return (
     <>
 <section className="landing">
-        <div className="landing-bg-container">
+        <div
+          className="landing-bg-container"
+          onPointerDown={onHeroPointerDown}
+          onPointerUp={onHeroPointerUp}
+          onPointerCancel={() => {
+            heroPointer.current = null;
+          }}
+        >
           {videoOk ? (
-            <video
+            <img
               className="landing-video"
               key={slide}
+              draggable={false}
               playsInline
               muted
               autoPlay
               preload="auto"
-              src={VIDEOS[slide % VIDEOS.length]}
+              src={IMGSLIDES[slide % IMGSLIDES.length]}
               onEnded={() => setSlide((s) => (s + 1) % HERO_SLIDES.length)}
               onError={() => setVideoOk(false)}
             />
           ) : (
-            <img className="landing-video" src={enc("/img/products/ALL SEALS - 2.png")} alt="" />
+            <img className="landing-video" src={enc("/img/products/ALL SEALS - 2.png")} alt="" draggable={false} />
           )}
 
           <div className="landing-text">
@@ -67,13 +101,13 @@ export default function Home() {
         </div>
 
         <div className="landing-bottom">
-          <div className="welcome-box">
+          {/* <div className="welcome-box">
             <h4>Welcome To Sealventures India</h4>
             <p>
               Matter of accuracy is the root concern for SealVentures India Private Limited in designing and
               manufacturing seals and associated precision products.
             </p>
-          </div>
+          </div> */}
           <div className="features">
             <div className="feature">
               <img src="/img/png/Quality Assurance.png" alt="Quality Assurance" />
@@ -83,12 +117,17 @@ export default function Home() {
             <div className="feature">
               <img src="/img/png/Certified Products.png" alt="Certified Products" />
               <h5>Certified Products</h5>
-              <p>All products comply with international standards (ISO, ASME, CE, etc.), ensuring safety and performance.</p>
+              <p>Products manufactured to meet relevant international standards, ensuring safety, quality, and performance.</p>
             </div>
             <div className="feature">
               <img src="/img/png/Global Reach.png" alt="Global Reach" />
               <h5>Global Reach</h5>
               <p>Serving clients across national and international markets with trusted mechanical products and services.</p>
+            </div>
+            <div className="feature">
+              <img src="/img/png/Quality Assurance.png" alt="Quality Assurance" />
+              <h5>Precision Engineering</h5>
+              <p>Delivering precision-engineered solutions designed to meet demanding industrial requirements with accuracy and consistency.</p>
             </div>
           </div>
         </div>
@@ -137,7 +176,7 @@ export default function Home() {
                 <div className="why-card-content">
                   <h4>{item.title}</h4>
                   <p>{item.text}</p>
-                  <Link to={`/about/overview#${item.id}`}>Read More...</Link>
+                  {/* <Link to={`/about/overview#${item.id}`}>Read More...</Link> */}
                 </div>
               </div>
             ))}
@@ -148,10 +187,10 @@ export default function Home() {
       <section className="product-slider-section">
         <div className="product-head">
           <span className="small-title">Our Features Product</span>
-          <h2>Distinguished as a premier Indian manufacturer</h2>
+          <h2>Sealing Innovation That Lasts</h2>
           <p>
-            Sealventures India leverages superior-grade substrates and advanced components to deliver uncompromising
-            quality in every sealing solution.
+            From standard solutions to custom-engineered designs, we help
+            you find the perfect seal for every industrial application.
           </p>
         </div>
         <div className="product-slider">
@@ -171,11 +210,11 @@ export default function Home() {
         <div className="container">
           <div className="industries-head">
             <span className="small-title">Industries We Serve</span>
-            <h2>We Provide The Best Service For Our Client.</h2>
+            <h2>Reliable Sealing Solutions for Every Industry</h2>
             <p>
-              <strong>Sealventures India</strong> delivers reliable mechanical sealing solutions engineered for demanding
-              operating conditions. Our seals ensure leak-free performance, reduced downtime, and extended service life
-              in critical process applications.
+              Our engineered solutions are trusted across a wide range of industries, delivering dependable performance
+through Mechanical Seals, Sealing Components, Seal Support Systems, Bearing Isolator, Rotary union and
+Precision-Machined Components for the most demanding operating conditions.
             </p>
           </div>
           <div className="industries-slider">
@@ -218,18 +257,37 @@ export default function Home() {
 
       <section className="reach-what">
         <div className="container reach-flex">
-          <div className="reach-left">
-            <span className="small-title">Our Reach</span>
-            <img src="/img/world.png" className="world-map" alt="" />
-          </div>
+          
+<div className="reach-left">
+  <span className="small-title">Our Reach</span>
+
+  <div className="map-wrap">
+    <img
+      src="/img/homepage/indianMap.svg"
+      className="world-map"
+      alt="Map of India highlighting Gujarat, Maharashtra, Delhi, Uttar Pradesh, and Tamil Nadu"
+    />
+    {STATES.map((s, i) => (
+      <span
+        key={s.name}
+        className="map-dot"
+        style={{ top: s.top, left: s.left, animationDelay: `${i * 0.3}s` }}
+        title={s.name}
+      >
+        <span className="map-dot-label">{s.name}</span>
+      </span>
+    ))}
+  </div>
+</div>
           <div className="reach-right">
             <span className="small-title">What We Do</span>
             <h2>Keeping industries running smoothly.</h2>
             <Accordion
               items={[
-                { title: "Workplace Health, Safety & Environmental Protection", body: "We prioritize workplace safety, employee health, and environmental stewardship. All mechanical seal production processes are managed with rigorous safety and environmental controls. Our goal is a sustainable, safe, and responsible manufacturing environment." },
-                { title: "Comprehensive Refurbishment & Support", body: "Beyond manufacturing, we offer expert repair and reconditioning services for all types of mechanical seals. Our goal is to extend the lifecycle of your equipment, reduce downtime, and provide cost-effective maintenance that restores your components to as-new performance levels." },
-                { title: "Supply Precision Seal Components", body: "We provide a broad range of precision sealing solutions, seals, and metal hardware, which also comprise next-generation seal faces made of Silicon Carbide (SiC), Tungsten Carbide, and Carbon-Graphite materials." },
+                { title: "Workplace Health, Safety & Environmental Protection", body: "We maintain rigorous workplace safety, employee health, and environmental practices to ensure responsible, sustainable, and compliant manufacturing operations." },
+                { title: "Mechanical Seal Manufacturing.", body: "We manufacture OEM-quality and replacement mechanical seals engineered for precise fitment, reliable performance, and extended service life across diverse industrial applications." },
+                { title: "Precision Machining & Engineering.", body: "Our CNC Turning, VMC Milling, and conventional machining capabilities deliver high-precision components with tight tolerances, consistent quality, and application-specific engineering." },
+                { title: "Refurbishment & Technical Support.", body: "We repair and recondition mechanical seals to restore performance, extend equipment life, reduce downtime, and provide a cost-effective alternative to replacement." },
               ]}
             />
           </div>

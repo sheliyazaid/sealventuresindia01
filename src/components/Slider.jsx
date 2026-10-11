@@ -19,7 +19,7 @@ export default function Slider({ className = "", children }) {
     if (!el) return;
     const step = getStep(el);
     const maxScroll = Math.max(0, el.scrollWidth - el.clientWidth);
-    const count = maxScroll ? Math.ceil(maxScroll / step) + 1 : 1;
+    const count = Math.round(maxScroll / step) + 1;
     setEdge({
       start: el.scrollLeft <= 4,
       end: el.scrollLeft >= maxScroll - 4,
