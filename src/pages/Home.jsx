@@ -125,7 +125,7 @@ export default function Home() {
               <p>Serving clients across national and international markets with trusted mechanical products and services.</p>
             </div>
             <div className="feature">
-              <img src="/img/png/Quality Assurance.png" alt="Quality Assurance" />
+              <img src="/img/png/precission.png" alt="Quality Assurance" />
               <h5>Precision Engineering</h5>
               <p>Delivering precision-engineered solutions designed to meet demanding industrial requirements with accuracy and consistency.</p>
             </div>

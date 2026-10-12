@@ -6,9 +6,10 @@ export default function EnquiryStrip() {
     <section className="enquiry-strip">
       <div className="container enquiry-flex">
         <p className="enquiry-text">
-          Do you have queries about how <b>Sealventures</b> can help your company stay competitive across the industry?
-          <br />
-          Get in touch with us !
+        Secure a professional evaluation of your needs. <br />
+        <span> Achieve peak performance with <b>Sealventures</b> commitment
+        to rigorous quality control and tight tolerance manufacturing.
+        Let’s build something great - Connect with us now.</span>
         </p>
         <div className="enquiry-action">
           <a

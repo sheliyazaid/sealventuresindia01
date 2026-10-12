@@ -1053,6 +1053,10 @@ ul {
   border-color: var(--brand);
 }
 
+.product-slider-section, .product-card{
+  border-radius: 8px;
+}
+
 .feature {
   position: relative;
   overflow: hidden;
@@ -1514,6 +1518,14 @@ ul {
   line-height: 1.4;
   max-width: 640px;
   text-align: center;
+}
+
+.enquiry-text span {
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 1.5 !important;
+  display: block;
+  padding-top: 6px;
 }
 
 .enquiry-action {
