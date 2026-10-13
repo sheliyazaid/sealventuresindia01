@@ -10,11 +10,13 @@ const IMGSLIDES = ["/img/homepage/slider1.png", "/img/homepage/slider2.png", "/i
 const WHY_ICONS = ["bx-cog", "bx-wrench", "bx-check-shield", "bx-customize", "bx-trending-up", "bx-world", "bx-medal", "bx-group"];
 
 const STATES = [
-  { name: "Gujarat",       top: "49%", left: "12%" },
+  { name: "Gujarat",       top: "49%", left: "16%" },
   { name: "Maharashtra",   top: "60%", left: "26%" },
-  { name: "Delhi",         top: "29%", left: "31%" },
-  { name: "Uttar Pradesh", top: "35%", left: "44%" },
-  { name: "Tamil Nadu",    top: "89%", left: "36%" },
+  { name: "Tamil Nadu",    top: "85%", left: "36%" },
+  { name: "Telangana",     top: "65%", left: "38%" },
+  { name: "Karnataka",     top: "75%", left: "30%" },
+  { name: "Uttar Pradesh", top: "36%", left: "43%" },
+  { name: "Rajasthan",     top: "38%", left: "23%" },
 ];
 
 export default function Home() {
@@ -136,18 +138,19 @@ export default function Home() {
       <section className="about-section">
         <div className="about-container">
           <div className="about-image">
-            <img src={enc("/img/About Sealventures.png")} alt="About Sealventures" />
+            <img src={enc("/img/homepage/aboutus.png")} alt="About Sealventures" />
           </div>
           <div className="about-content">
             <span className="about-tag">About Sealventures</span>
-            <h2>Matter of Accuracy is the root concern for Sealventures India Private Limited.</h2>
+            <h2>Precision Engineering. Reliable Sealing Solutions.</h2>
             <p>
-              We design and manufacture precision mechanical seals, components, and support systems tailored to
-              customer specifications. Our portfolio includes cartridge, bellows, agitator, split, and custom seals,
-              backed by dependable engineering and quality control.
+              Sealventures India Private Limited specializes in the design, manufacturing, supply, and export of high-performance mechanical seals, sealing components, seal support systems, bearing isolators, rotary joints, and precision-engineered components.
+            </p>
+            <p>
+              With over two decades of engineering experience, we combine advanced sealing technology with precision machining capabilities to deliver application-specific solutions tailored to exact customer specifications, drawings, and samples. Our commitment to precision, dependable engineering, and quality helps us meet demanding industrial requirements across diverse applications...
             </p>
             <Link to="/about/overview" className="about-btn site-cta">
-              Read More...
+              Read More
             </Link>
           </div>
         </div>

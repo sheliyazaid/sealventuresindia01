@@ -3606,8 +3606,8 @@ ul {
 
 .map-dot {
   position: absolute;
-  width: 10px;
-  height: 10px;
+  width: 6px;
+  height: 6px;
   /* transform use nahi kar sakte centering ke liye, kyunki animation transform: scale use karti hai */
   margin: -5px 0 0 -5px;
   border-radius: 50%;
