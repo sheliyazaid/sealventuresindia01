@@ -1237,7 +1237,7 @@ ul {
 }
 
 .about-image img {
-  max-width: 420px;
+  /* max-width: 420px; */
   margin: 0 auto;
   border-radius: 12px;
 }
